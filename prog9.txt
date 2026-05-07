@@ -1,0 +1,17 @@
+clc;
+close all;
+clear all;
+
+img = imread('cameraman.tif');
+
+compressed = imresize(img, 0.5);
+
+figure;
+
+subplot(1,2,1);
+imshow(img);
+title('Original Image');
+
+subplot(1,2,2);
+imshow(compressed);
+title('Compressed Image');

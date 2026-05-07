@@ -1,0 +1,45 @@
+% Program to demonstrate rotation, scaling, and translation of an image
+
+% Read the digital image
+img = imread('peppers.png');
+
+%% Rotation
+angle = 45; % Rotation angle in degrees
+rotatedImg = imrotate(img, angle);
+
+%% Scaling
+scaleFactor = 1.5; % Scaling factor
+scaledImg = imresize(img, scaleFactor);
+
+%% Translation
+tx = 50; % Translation along x-axis
+ty = 30; % Translation along y-axis
+
+% Create translation matrix
+tform = affine2d([1 0 0; 0 1 0; tx ty 1]);
+
+% Apply translation
+translatedImg = imwarp(img, tform);
+
+%% Display all images in one figure
+figure;
+
+% Original Image
+subplot(2,2,1);
+imshow(img);
+title('Original Image');
+
+% Rotated Image
+subplot(2,2,2);
+imshow(rotatedImg);
+title(['Rotated Image (', num2str(angle), '°)']);
+
+% Scaled Image
+subplot(2,2,3);
+imshow(scaledImg);
+title(['Scaled Image (Scale: ', num2str(scaleFactor), ')']);
+
+% Translated Image
+subplot(2,2,4);
+imshow(translatedImg);
+title(['Translated Image (Tx=', num2str(tx), ', Ty=', num2str(ty), ')']);

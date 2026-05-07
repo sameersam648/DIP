@@ -1,0 +1,68 @@
+% Program to display low-level image features using filtering techniques
+
+clc;
+clear all;
+close all;
+
+% Read the image
+img = imread('cameraman.tif');
+
+% Convert to grayscale if image is RGB
+if size(img,3) == 3
+    grayImg = rgb2gray(img);
+else
+    grayImg = img;
+end
+
+%% Sobel Edge Detection
+sobelEdge = edge(grayImg, 'sobel');
+
+%% Canny Edge Detection
+cannyEdge = edge(grayImg, 'canny');
+
+%% Gaussian Smoothing
+gaussianFilter = fspecial('gaussian', [5 5], 1);
+gaussianSmooth = imfilter(grayImg, gaussianFilter);
+
+%% Laplacian Texture Detection
+laplacianFilter = fspecial('laplacian', 0.2);
+laplacianTexture = imfilter(grayImg, laplacianFilter);
+
+%% Enhanced Texture
+enhancedTexture = imadd(grayImg, laplacianTexture);
+
+%% Display all results in one figure
+figure;
+
+% Original Image
+subplot(2,3,1);
+imshow(grayImg);
+title('Original Image');
+
+% Sobel Edge
+subplot(2,3,2);
+imshow(sobelEdge);
+title('Sobel Edge');
+
+% Canny Edge
+subplot(2,3,3);
+imshow(cannyEdge);
+title('Canny Edge');
+
+% Gaussian Smooth
+subplot(2,3,4);
+imshow(gaussianSmooth);
+title('Gaussian Smooth');
+
+% Laplacian Texture
+subplot(2,3,5);
+imshow(laplacianTexture, []);
+title('Laplacian Texture');
+
+% Enhanced Texture
+subplot(2,3,6);
+imshow(enhancedTexture);
+title('Enhanced Texture');
+
+% Overall title
+sgtitle('Low-Level Image Features using Filtering Techniques');

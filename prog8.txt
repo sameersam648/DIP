@@ -1,0 +1,38 @@
+% Program to implement basic image restoration techniques
+
+% Read the input image
+originalImg = imread('peppers.png');
+
+% Convert to grayscale if the image is RGB
+if size(originalImg, 3) == 3
+    originalImg = rgb2gray(originalImg);
+end
+
+%% Add Noise to the Image
+% Add Gaussian noise
+noisyImg = imnoise(originalImg, 'gaussian', 0, 0.01);
+
+%% Restore the Image
+% Apply median filter for restoration
+restoredImg = medfilt2(noisyImg, [3 3]);
+
+%% Display all images in a single figure
+figure;
+
+% Original Image
+subplot(1,3,1);
+imshow(originalImg);
+title('Original Image');
+
+% Noisy Image
+subplot(1,3,2);
+imshow(noisyImg);
+title('Noisy Image');
+
+% Restored Image
+subplot(1,3,3);
+imshow(restoredImg);
+title('Restored Image');
+
+% Overall title
+sgtitle('Image Restoration');

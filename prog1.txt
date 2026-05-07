@@ -1,0 +1,38 @@
+clc;
+clear all;
+close all;
+
+img = imread('peppers.png');
+
+[row, cols, ~] = size(img);
+
+row_mid = floor(row/2);
+col_mid = floor(cols/2);
+
+% Split images
+up = img(1:row_mid, :, :);
+
+left = img(:, 1:col_mid, :);
+
+down = img(row_mid+1:end, :, :);
+
+right = img(:, col_mid+1:end, :);
+
+% Display images
+figure;
+
+subplot(2,2,1);
+imshow(up);
+title('Up Image');
+
+subplot(2,2,2);
+imshow(down);
+title('Down Image');
+
+subplot(2,2,3);
+imshow(right);
+title('Right Side Image');
+
+subplot(2,2,4);
+imshow(left);
+title('Left Side Image');

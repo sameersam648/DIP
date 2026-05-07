@@ -1,0 +1,37 @@
+% MATLAB Image Intensity Slicing Technique for Image Enhancement
+
+clc;
+clear all;
+close all;
+
+% Step 1: Load the Image
+img = imread('peppers.png');
+
+% Convert to grayscale if the image is colored
+gray_image = rgb2gray(img);
+
+% Step 2: Display the Original Image
+figure;
+
+subplot(1,2,1);
+imshow(gray_image);
+title('Original Image');
+
+% Step 3: Define Intensity Range for Slicing
+lower_bound = 50;      % Lower bound intensity
+upper_bound = 150;     % Upper bound intensity
+highlight_value = 255; % Maximum intensity value
+
+% Step 4: Apply Intensity Slicing
+enhanced_image = gray_image;
+
+% Highlight pixels within the range
+enhanced_image(gray_image >= lower_bound & gray_image <= upper_bound) = highlight_value;
+
+% Step 5: Display the Enhanced Image
+subplot(1,2,2);
+imshow(enhanced_image);
+title('Enhanced Image (Intensity Slicing)');
+
+% Step 6: Display Pixel Intensity Range
+disp(['Intensity Range: ', num2str(lower_bound), ' to ', num2str(upper_bound)]);

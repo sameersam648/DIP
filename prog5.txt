@@ -1,0 +1,45 @@
+% Program for Enhancement and Segmentation of Low Contrast 2D Image
+
+clc;
+clear all;
+close all;
+
+% Read image
+img = imread('pout.tif');
+
+% Convert to grayscale if image is RGB
+if size(img,3) == 3
+    grayImg = rgb2gray(img);
+else
+    grayImg = img;
+end
+
+%% Image Enhancement using Histogram Equalization
+enhancedImg = histeq(grayImg);
+
+%% Image Segmentation using Otsu Thresholding
+level = graythresh(enhancedImg);
+
+binaryImg = imbinarize(enhancedImg, level);
+
+%% Display all images in single figure
+
+figure;
+
+% Original Image
+subplot(1,3,1);
+imshow(grayImg);
+title('Original Low Contrast Image');
+
+% Enhanced Image
+subplot(1,3,2);
+imshow(enhancedImg);
+title('Enhanced Image');
+
+% Segmented Binary Image
+subplot(1,3,3);
+imshow(binaryImg);
+title('Segmented Binary Image');
+
+% Overall title
+sgtitle('Enhancement and Segmentation of Low Contrast 2D Image');
